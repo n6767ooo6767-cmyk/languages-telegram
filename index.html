@@ -1,73 +1,16 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1"><title>Telegram Language Hub</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}body{font:16px system-ui;background:#050816;color:#eef;overflow-x:hidden}
-#bg{position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,#00d4ff33,transparent 25%),radial-gradient(circle at 80% 30%,#8b5cf633,transparent 25%),linear-gradient(#050816,#0d1228);z-index:-2}
-canvas{position:fixed;inset:0;z-index:-1}
-.wrap{max-width:1280px;margin:auto;padding:30px}
-h1{font-size:3rem;text-align:center;margin-bottom:8px}.sub{text-align:center;opacity:.7;margin-bottom:20px}
-.top{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-input,select{background:#ffffff12;border:1px solid #ffffff20;color:#fff;padding:12px 16px;border-radius:14px}
-.stats{display:flex;gap:15px;justify-content:center;margin:18px 0}.stat{background:#ffffff12;padding:10px 18px;border-radius:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-.card{background:#ffffff10;border:1px solid #ffffff18;border-radius:20px;padding:18px;backdrop-filter:blur(16px);transition:.3s;position:relative;overflow:hidden}
-.card:before{content:"";position:absolute;inset:-40%;background:linear-gradient(45deg,transparent,#ffffff15,transparent);transform:rotate(25deg);left:-120%;transition:.6s}
-.card:hover:before{left:120%}.card:hover{transform:translateY(-8px)}
-.badge{display:inline-block;background:#229ED9;padding:4px 8px;border-radius:999px;font-size:12px}
-.actions{display:flex;gap:8px;margin-top:12px}
-.btn{flex:1;text-align:center;text-decoration:none;color:#fff;padding:10px;border-radius:10px;background:linear-gradient(90deg,#229ED9,#8b5cf6);background-size:200% 100%;animation:g 3s linear infinite}
-.copy{background:#ffffff18;border:none;color:#fff;border-radius:10px;padding:10px;cursor:pointer}
-.star{position:absolute;top:12px;right:12px;cursor:pointer;font-size:20px}
-.toast{position:fixed;right:20px;bottom:20px;background:#111a;padding:14px 18px;border-radius:12px;display:none}
-@keyframes g{to{background-position:200%}}
-</style></head><body><div id=bg></div><canvas id=c></canvas><div class=wrap>
-<h1>Telegram Language Hub</h1><div class=sub>Замени ссылки в массиве languages</div>
-<div class=top><input id=q placeholder="Поиск"><select id=sort><option>А-Я</option><option>Я-А</option></select></div>
-<div class=stats><div class=stat>Всего: <b id=total></b></div><div class=stat>Избранных: <b id=favc></b></div></div>
-<div id=grid class=grid></div></div><div id=t class=toast></div>
-<script>
-const languages=
-  [
-    {
-    name:"💀 Dead Inside",
-    url:"https://t.me/setlanguage/deadinsidememe"
-   }
-  ];
-
-  [
-    {
-      name: " Pirate",
-      url: "https://t.me/setlanguage/pirate-en"
-    }
-  ]
-
-
-
-
-  
-  
-  for(let i=2;i<=120;i++)languages.push
-    ({name:"🧩 Язык "+i,url:"#"});
-
-const fav=JSON.parse(localStorage.fav||"[]");
-const F=new Set(fav);
-const g=grid,q=document.getElementById("q"),s=sort,t=document.getElementById("t");
-function toast(x){t.textContent=x;t.style.display="block";setTimeout(()=>t.style.display="none",1500)}
-function save(){localStorage.fav=JSON.stringify([...F])}
-function render(){
-let arr=languages.filter(x=>x.name.toLowerCase().includes(q.value.toLowerCase()));
-arr.sort((a,b)=>s.selectedIndex?a.name<b.name?1:-1:a.name>b.name?1:-1);
-grid.innerHTML="";
-arr.forEach(x=>{
-let d=document.createElement("div");d.className="card";
-d.innerHTML=`<div class=star>${F.has(x.name)?"⭐":"☆"}</div><span class=badge>Language</span><h3 style="margin:12px 0">${x.name}</h3><code>${x.url}</code><div class=actions><a class=btn href="${x.url}" target=_blank>Открыть</a><button class=copy>📋</button></div>`;
-d.querySelector(".star").onclick=()=>{F.has(x.name)?F.delete(x.name):F.add(x.name);save();render()}
-d.querySelector(".copy").onclick=()=>{navigator.clipboard.writeText(x.url);toast("Ссылка скопирована")}
-grid.appendChild(d)
-});
-total.textContent=languages.length;favc.textContent=F.size;
-}
-q.oninput=render;s.onchange=render;render();
-const cv=c,ctx=cv.getContext("2d");function rs(){cv.width=innerWidth;cv.height=innerHeight}rs();onresize=rs;
-let p=[...Array(140)].map(()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*1.2}));
-(function f(){ctx.clearRect(0,0,cv.width,cv.height);ctx.fillStyle="#55d";for(let a of p){a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>cv.width)a.vx*=-1;if(a.y<0||a.y>cv.height)a.vy*=-1;ctx.beginPath();ctx.arc(a.x,a.y,2,0,7);ctx.fill()}for(let i=0;i<p.length;i++)for(let j=i+1;j<p.length;j++){let dx=p[i].x-p[j].x,dy=p[i].y-p[j].y,d=Math.hypot(dx,dy);if(d<120){ctx.strokeStyle="rgba(120,180,255,"+(1-d/120)/4+")";ctx.beginPath();ctx.moveTo(p[i].x,p[i].y);ctx.lineTo(p[j].x,p[j].y);ctx.stroke()}}requestAnimationFrame(f)})();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Telegram Meme Language Packs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Telegram Language Packs</h1>
+        <div class="animation-box"></div>
+        <div id="links-container" class="grid"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
